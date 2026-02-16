@@ -90,7 +90,6 @@ export function AddBookmarkDialog({ trigger, onCreated }: AddBookmarkDialogProps
       thumbnail_url: thumbnailUrl || null,
       favicon_url: faviconUrl || null,
       collection_id: collectionId === 'none' ? null : collectionId,
-      custom_fields: {},
     })
 
     if (!result.success) {

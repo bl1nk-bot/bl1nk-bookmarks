@@ -8,7 +8,7 @@ export type BookmarkTag = Database['public']['Tables']['bookmark_tags']['Row']
 
 // Insert types
 export type CollectionInsert = Database['public']['Tables']['collections']['Insert']
-export type BookmarkInsert = Database['public']['Tables']['bookmarks']['Insert']
+export type BookmarkInsert = Omit<Database['public']['Tables']['bookmarks']['Insert'], 'user_id'>
 export type TagInsert = Database['public']['Tables']['tags']['Insert']
 
 // Update types

@@ -6,7 +6,8 @@ import { useAuthStore } from '@/lib/store/auth'
 import { useState, useCallback } from 'react'
 import type { BookmarkInsert, BookmarkUpdate, BookmarkWithTags, Tag, Collection } from '@/lib/types'
 
-type BookmarkRowWithRelations = BookmarkWithTags & {
+type BookmarkRowWithRelations = {
+  [key: string]: unknown
   tags?: Array<{ tag: Tag | null }> | null
   collection?: Collection | null
 }
@@ -65,12 +66,12 @@ export function useBookmarks() {
       if (fetchError) throw fetchError
 
       // Transform data to match BookmarkWithTags type
-      const transformedData: BookmarkWithTags[] = (data ?? []).map((item) => {
-        const row = item as BookmarkRowWithRelations
+      const transformedData: BookmarkWithTags[] = (data ?? []).map((item: any) => {
+        const { tags: rawTags, collection: rawCollection, ...bookmark } = item
         return {
-          ...row,
-          tags: row.tags?.map((t) => t.tag).filter((tag): tag is Tag => Boolean(tag)) || [],
-          collection: row.collection || undefined,
+          ...bookmark,
+          tags: rawTags?.map((t: any) => t.tag).filter((tag: any): tag is Tag => tag !== null) || [],
+          collection: rawCollection || undefined,
         }
       })
 
@@ -93,7 +94,7 @@ export function useBookmarks() {
 
       const { data, error: createError } = await supabase
         .from('bookmarks')
-        .insert({ ...bookmark, user_id: user.id })
+        .insert({ ...bookmark, user_id: user.id } as any)
         .select()
         .single()
 
@@ -119,7 +120,7 @@ export function useBookmarks() {
 
       const { data, error: updateError } = await supabase
         .from('bookmarks')
-        .update(updates)
+        .update(updates as any)
         .eq('id', id)
         .select()
         .single()
@@ -185,12 +186,12 @@ export function useBookmarks() {
 
       if (searchError) throw searchError
 
-      const transformedData: BookmarkWithTags[] = (data ?? []).map((item) => {
-        const row = item as BookmarkRowWithRelations
+      const transformedData: BookmarkWithTags[] = (data ?? []).map((item: any) => {
+        const { tags: rawTags, collection: rawCollection, ...bookmark } = item
         return {
-          ...row,
-          tags: row.tags?.map((t) => t.tag).filter((tag): tag is Tag => Boolean(tag)) || [],
-          collection: row.collection || undefined,
+          ...bookmark,
+          tags: rawTags?.map((t: any) => t.tag).filter((tag: any): tag is Tag => tag !== null) || [],
+          collection: rawCollection || undefined,
         }
       })
 

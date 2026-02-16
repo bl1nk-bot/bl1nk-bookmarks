@@ -83,8 +83,6 @@ export default function SearchPage() {
     if (allBookmarks.length === 0) return fallbackResults
 
     return allBookmarks.map((bookmark, index) => {
-      const firstTag = bookmark.tags?.[0]?.name ?? 'General'
-      const secondTag = bookmark.tags?.[1]?.name
       const coverVariants = [
         'bg-gradient-to-br from-indigo-300 to-cyan-200',
         'bg-gradient-to-br from-emerald-200 to-teal-200',
@@ -95,7 +93,7 @@ export default function SearchPage() {
         id: bookmark.id,
         title: bookmark.title || bookmark.url,
         url: formatBookmarkUrl(bookmark.url),
-        tags: secondTag ? [firstTag, secondTag] : [firstTag],
+        tags: ['General'],
         coverClass: coverVariants[index % coverVariants.length],
         saved: index % 2 === 0,
       }
