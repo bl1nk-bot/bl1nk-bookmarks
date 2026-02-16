@@ -56,13 +56,11 @@ export function Sidebar() {
 
   useEffect(() => {
     void fetchCollections()
-    // Check for dark mode
-    setIsDark(document.documentElement.classList.contains('dark'))
   }, [fetchCollections])
 
   const toggleTheme = () => {
     document.documentElement.classList.toggle('dark')
-    setIsDark(!isDark)
+    setIsDark(prev => !prev)
   }
 
   return (

@@ -5,6 +5,7 @@ import { createClient, SUPABASE_MISSING_ENV_MESSAGE } from '@/lib/supabase/clien
 import { useAuthStore } from '@/lib/store/auth'
 import { useState, useCallback } from 'react'
 import type { BookmarkInsert, BookmarkUpdate, BookmarkWithTags, Tag, Collection } from '@/lib/types'
+import type { Database } from '@/lib/types/database.types'
 
 type BookmarkRowWithRelations = {
   [key: string]: unknown
@@ -17,6 +18,14 @@ export function useBookmarks() {
   const { user } = useAuthStore()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Helper to ensure supabase client is available
+  const getSupabaseClient = (): typeof supabase & NonNullable<typeof supabase> => {
+    if (!supabase) {
+      throw new Error(SUPABASE_MISSING_ENV_MESSAGE)
+    }
+    return supabase
+  }
 
   const {
     bookmarks,
@@ -92,9 +101,11 @@ export function useBookmarks() {
       setIsLoading(true)
       setError(null)
 
-      const { data, error: createError } = await supabase
+      const client = getSupabaseClient()
+      const bookmarkToInsert = { ...bookmark, user_id: user.id } as Database['public']['Tables']['bookmarks']['Insert']
+      const { data, error: createError } = await (client as any)
         .from('bookmarks')
-        .insert({ ...bookmark, user_id: user.id } as any)
+        .insert(bookmarkToInsert)
         .select()
         .single()
 
@@ -118,9 +129,11 @@ export function useBookmarks() {
       setIsLoading(true)
       setError(null)
 
-      const { data, error: updateError } = await supabase
+      const client = getSupabaseClient()
+      const updatesTyped = updates as Partial<Database['public']['Tables']['bookmarks']['Update']>
+      const { data, error: updateError } = await (client as any)
         .from('bookmarks')
-        .update(updates as any)
+        .update(updatesTyped)
         .eq('id', id)
         .select()
         .single()

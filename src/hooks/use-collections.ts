@@ -5,6 +5,7 @@ import { createClient, SUPABASE_MISSING_ENV_MESSAGE } from '@/lib/supabase/clien
 import { useAuthStore } from '@/lib/store/auth'
 import { useState, useCallback } from 'react'
 import type { CollectionInsert, CollectionUpdate, CollectionWithBookmarks } from '@/lib/types'
+import type { Database } from '@/lib/types/database.types'
 
 type CollectionWithCount = CollectionWithBookmarks & {
   bookmarks?: Array<{ count?: number }>
@@ -15,6 +16,14 @@ export function useCollections() {
   const { user } = useAuthStore()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Helper to ensure supabase client is available
+  const getSupabaseClient = (): typeof supabase & NonNullable<typeof supabase> => {
+    if (!supabase) {
+      throw new Error(SUPABASE_MISSING_ENV_MESSAGE)
+    }
+    return supabase
+  }
 
   const {
     collections,
@@ -76,9 +85,11 @@ export function useCollections() {
       setIsLoading(true)
       setError(null)
 
-      const { data, error: createError } = await supabase
+      const client = getSupabaseClient()
+      const collectionToInsert = { ...collection, user_id: user.id } as Database['public']['Tables']['collections']['Insert']
+      const { data, error: createError } = await (client as any)
         .from('collections')
-        .insert({ ...collection, user_id: user.id })
+        .insert(collectionToInsert)
         .select()
         .single()
 
@@ -102,9 +113,11 @@ export function useCollections() {
       setIsLoading(true)
       setError(null)
 
-      const { data, error: updateError } = await supabase
+      const client = getSupabaseClient()
+      const updatesTyped = updates as Partial<Database['public']['Tables']['collections']['Update']>
+      const { data, error: updateError } = await (client as any)
         .from('collections')
-        .update(updates)
+        .update(updatesTyped)
         .eq('id', id)
         .select()
         .single()

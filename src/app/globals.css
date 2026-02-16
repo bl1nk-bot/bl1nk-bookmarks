@@ -3,50 +3,135 @@
 @custom-variant dark (&:is(.dark *));
 @tailwind utilities;
 
+/* ============================================
+   SHADCN THEME VARIABLES - UPDATED
+   Based on Design System: Indigo Primary, Emerald CTA
+   ============================================ */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light Mode Colors - Design System Spec */
+    /* Background: #F5F3FF (Light Purple/Indigo tint) */
+    /* Text: #1E1B4B (Dark Navy) */
+    /* Primary: #6366F1 (Indigo-500) */
+    /* Secondary: #818CF8 (Indigo-400) */
+    /* CTA: #10B981 (Emerald-500) */
+    
+    --background: 220 20% 97%;        /* #F5F3FF */
+    --foreground: 222 47% 11%;        /* #1E1B4B */
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 47% 11%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --popover-foreground: 222 47% 11%;
+    
+    /* Primary: Indigo #6366F1 */
+    --primary: 219 85% 50%;           /* #6366F1 */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary: Light Indigo #818CF8 */
+    --secondary: 219 85% 60%;         /* #818CF8 */
+    --secondary-foreground: 222 47% 11%;
+    
+    /* Muted */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    
+    /* Accent */
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    
+    /* CTA: Emerald #10B981 */
+    --cta: 160 84% 39%;               /* #10B981 */
+    --cta-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 214 32% 91%;            /* #E2E8F0 */
+    --input: 214 32% 91%;
+    --ring: 219 85% 50%;              /* #6366F1 */
+    
+    --radius: 0.625rem;
+    
+    /* Chart colors */
+    --chart-1: 219 85% 50%;
+    --chart-2: 160 84% 39%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 38 92% 71%;
+    --chart-5: 346 77% 64%;
+    
+    /* Sidebar */
+    --sidebar: 220 20% 97%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 219 85% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 219 85% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* Dark Mode Colors - Design System Spec */
+    /* Background: #020617 (Dark Navy/Slate) */
+    /* Text: #F8FAFC (White Smoke) */
+    /* Primary: #818CF8 (Bright Indigo) */
+    /* CTA: #22C55E (Green) */
+    
+    --background: 220 38% 10%;        /* #020617 */
+    --foreground: 210 20% 91%;        /* #F8FAFC */
+    
+    --card: 217 33% 17%;
+    --card-foreground: 210 20% 91%;
+    
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 20% 91%;
+    
+    /* Primary: Bright Indigo #818CF8 */
+    --primary: 219 85% 60%;           /* #818CF8 */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary: Dark Slate */
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 20% 91%;
+    
+    /* Muted */
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* Accent */
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 20% 91%;
+    
+    /* CTA: Green #22C55E */
+    --cta: 142 71% 45%;               /* #22C55E */
+    --cta-foreground: 0 0% 100%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 20% 91%;
+    
+    --border: 217 33% 17%;            /* Transparent white 10% */
+    --input: 217 33% 17%;
+    --ring: 219 85% 60%;              /* #818CF8 */
+    
+    /* Chart colors - adjusted for dark mode */
+    --chart-1: 219 85% 60%;
+    --chart-2: 142 71% 45%;
+    --chart-3: 262 83% 68%;
+    --chart-4: 38 92% 71%;
+    --chart-5: 346 77% 74%;
+    
+    /* Sidebar */
+    --sidebar: 217 33% 17%;
+    --sidebar-foreground: 210 20% 91%;
+    --sidebar-primary: 219 85% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 20% 91%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 219 85% 60%;
   }
 }
 
@@ -56,8 +141,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* ============================================
+   THEME COLOR MAPPING FOR TAILWIND
+   ============================================ */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -67,6 +157,7 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -82,6 +173,9 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -100,74 +194,9 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
+/* ============================================
+   BASE STYLES
+   ============================================ */
 
 @layer base {
   * {
@@ -178,20 +207,9 @@
   }
 }
 
-/* Keep palette aligned with provided HTML mocks */
-:root {
-  --primary: 219 85% 50%;
-  --primary-foreground: 0 0% 100%;
-  --background: 220 20% 97%;
-  --foreground: 222 47% 11%;
-}
-
-.dark {
-  --primary: 219 85% 50%;
-  --primary-foreground: 0 0% 100%;
-  --background: 220 38% 10%;
-  --foreground: 210 20% 91%;
-}
+/* ============================================
+   SCROLLBAR STYLES - Custom
+   ============================================ */
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -200,6 +218,85 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+  transition: background 200ms ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(129, 140, 248, 0.3);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(129, 140, 248, 0.5);
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass {
+  background: rgba(2, 6, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dark .glass-strong {
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.dark .glass-nav {
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
@@ -308,96 +405,11 @@
 }
 
 /* ============================================
-   GLASSMORPHISM UTILITIES
-   ============================================ */
-
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark .glass {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glass-strong {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.dark .glass-strong {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.dark .glass-card {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* ============================================
-   GRADIENT UTILITIES
-   ============================================ */
-
-.gradient-border {
-  position: relative;
-  background: linear-gradient(var(--background), var(--background)) padding-box,
-              linear-gradient(135deg, #667eea 0%, #764ba2 100%) border-box;
-  border: 2px solid transparent;
-}
-
-.gradient-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.gradient-secondary {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.gradient-accent {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.gradient-success {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-}
-
-.gradient-warning {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.gradient-dark {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-}
-
-.gradient-mesh {
-  background: 
-    radial-gradient(at 40% 20%, hsla(280, 100%, 74%, 0.3) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.3) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.3) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 0.3) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 0.3) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 0.3) 0px, transparent 50%),
-    radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 0.3) 0px, transparent 50%);
-}
-
-/* ============================================
-   INTERACTIVE STATES
+   INTERACTIVE STATES - Smooth transitions
    ============================================ */
 
 .interactive-scale {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .interactive-scale:hover {
@@ -409,28 +421,32 @@
 }
 
 .interactive-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .interactive-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dark .interactive-lift:hover {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 .interactive-glow {
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 300ms ease;
 }
 
 .interactive-glow:hover {
-  box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 0 30px rgba(99, 126, 234, 0.4);
 }
 
 /* ============================================
-   CARD STYLES
+   CARD STYLES - With hover effects
    ============================================ */
 
 .card-hover {
-  transition: all 0.3s ease;
+  transition: all 300ms ease;
 }
 
 .card-hover:hover {
@@ -438,35 +454,23 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.card-3d {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.card-3d:hover {
-  transform: rotateY(5deg) rotateX(5deg);
+.dark .card-hover:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================
-   TEXT STYLES
+   TEXT STYLES - Gradients
    ============================================ */
 
 .text-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6366F1 0%, #818CF8 50%, #A5B4FC 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-gradient-secondary {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-accent {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+.text-gradient-cta {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -481,6 +485,100 @@
   );
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
+}
+
+/* ============================================
+   GRADIENT UTILITIES
+   ============================================ */
+
+.gradient-primary {
+  background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+}
+
+.gradient-cta {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #818CF8 0%, #A5B4FC 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+}
+
+.gradient-mesh {
+  background:
+    radial-gradient(at 40% 20%, hsla(232, 85%, 74%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(160, 84%, 39%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(262, 83%, 76%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(232, 85%, 60%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(160, 84%, 50%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(262, 83%, 68%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(232, 85%, 74%, 0.3) 0px, transparent 50%);
+}
+
+/* ============================================
+   FOCUS STYLES - Accessible
+   ============================================ */
+
+.focus-ring {
+  transition: box-shadow 200ms ease;
+}
+
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+}
+
+.focus-ring-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+}
+
+.focus-ring-cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.4);
+}
+
+.focus-ring-success:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+}
+
+.focus-ring-warning:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.4);
+}
+
+.focus-ring-danger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4);
+}
+
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(99, 102, 241, 0.06) 0%,
+    rgba(99, 102, 241, 0.1) 50%,
+    rgba(99, 102, 241, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(129, 140, 248, 0.06) 0%,
+    rgba(129, 140, 248, 0.1) 50%,
+    rgba(129, 140, 248, 0.06) 100%
+  );
+  background-size: 200% 100%;
 }
 
 /* ============================================
@@ -499,165 +597,64 @@
   75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
 }
 
-.ripple-effect {
-  position: relative;
-  overflow: hidden;
-}
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
 
-.ripple-effect::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
-}
-
-.ripple-effect:active::after {
-  width: 300px;
-  height: 300px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-float,
+  .animate-glow,
+  .animate-pulse-ring,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-scale-in,
+  .animate-fade-in,
+  .animate-bounce-subtle,
+  .animate-rotate-slow,
+  .animate-gradient {
+    animation: none !important;
+  }
 }
 
 /* ============================================
-   SCROLLBAR STYLES
+   RESPONSIVE UTILITIES
    ============================================ */
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Container max widths for different breakpoints */
+.container-sm {
+  max-width: 640px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+.container-md {
+  max-width: 768px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
+.container-lg {
+  max-width: 1024px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
+.container-xl {
+  max-width: 1440px;
 }
 
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+.container-2xl {
+  max-width: 1400px;
 }
 
 /* ============================================
-   FOCUS STYLES
+   PRINT STYLES
    ============================================ */
 
-.focus-ring {
-  transition: box-shadow 0.2s ease;
-}
-
-.focus-ring:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.4);
-}
-
-.focus-ring-primary:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
-}
-
-.focus-ring-success:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
-}
-
-.focus-ring-warning:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.4);
-}
-
-.focus-ring-danger:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4);
-}
-
-/* ============================================
-   SKELETON LOADING
-   ============================================ */
-
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    rgba(0, 0, 0, 0.1) 50%,
-    rgba(0, 0, 0, 0.06) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-.dark .skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.06) 100%
-  );
-  background-size: 200% 100%;
-}
-
-/* ============================================
-   TOOLTIP STYLES
-   ============================================ */
-
-.tooltip {
-  position: relative;
-}
-
-.tooltip::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  padding: 6px 12px;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  font-size: 12px;
-  border-radius: 6px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-  z-index: 100;
-}
-
-.tooltip:hover::before {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-4px);
-}
-
-/* ============================================
-   NOTIFICATION BADGE
-   ============================================ */
-
-.badge-pulse {
-  position: relative;
-}
-
-.badge-pulse::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: inherit;
-  animation: pulse-ring 1.5s ease-out infinite;
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }
