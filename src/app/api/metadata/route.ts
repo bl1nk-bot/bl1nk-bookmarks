@@ -13,6 +13,39 @@ function isValidHttpUrl(value: string) {
   }
 }
 
+// Restrict which hosts/ports can be requested to mitigate SSRF.
+// Adjust ALLOWED_HOSTNAMES / ALLOWED_HOST_SUFFIXES as appropriate for your app.
+const ALLOWED_HOSTNAMES = new Set<string>()
+const ALLOWED_HOST_SUFFIXES = ['example.com']
+const ALLOWED_PORTS = new Set<number | undefined>([80, 443, undefined])
+
+function isAllowedTargetUrl(value: string): boolean {
+  try {
+    const parsed = new URL(value)
+
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+      return false
+    }
+
+    const hostname = parsed.hostname.toLowerCase()
+    const port = parsed.port ? Number(parsed.port) : undefined
+
+    if (!ALLOWED_PORTS.has(port)) {
+      return false
+    }
+
+    if (ALLOWED_HOSTNAMES.has(hostname)) {
+      return true
+    }
+
+    return ALLOWED_HOST_SUFFIXES.some((suffix) =>
+      hostname === suffix || hostname.endsWith('.' + suffix)
+    )
+  } catch {
+    return false
+  }
+}
+
 function resolveUrl(baseUrl: string, maybeRelative: string | null): string | null {
   if (!maybeRelative) return null
   try {
@@ -97,7 +130,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get('url')
 
-  if (!url || !isValidHttpUrl(url)) {
+  if (!url || !isValidHttpUrl(url) || !isAllowedTargetUrl(url)) {
     return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
   }
 
