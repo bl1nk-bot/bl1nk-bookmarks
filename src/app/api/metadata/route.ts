@@ -130,7 +130,19 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get('url')
 
-  if (!url || !isValidHttpUrl(url) || !isAllowedTargetUrl(url)) {
+  if (!url) {
+    return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
+  }
+
+  let targetUrl: URL
+  try {
+    targetUrl = new URL(url)
+  } catch {
+    return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
+  }
+
+  const normalizedUrl = targetUrl.toString()
+  if (!isValidHttpUrl(normalizedUrl) || !isAllowedTargetUrl(normalizedUrl)) {
     return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
   }
 
@@ -138,11 +150,11 @@ export async function GET(request: Request) {
   const timeout = setTimeout(() => controller.abort(), 10000)
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(normalizedUrl, {
       headers: {
         'User-Agent': USER_AGENT,
       },
-      redirect: 'follow',
+      redirect: 'manual',
       signal: controller.signal,
     })
 
@@ -151,7 +163,7 @@ export async function GET(request: Request) {
     }
 
     const html = await response.text()
-    const metadata = parseMetadata(html, response.url || url)
+    const metadata = parseMetadata(html, response.url || normalizedUrl)
 
     return NextResponse.json(metadata)
   } catch (error) {
