@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     const { data: tags, error } = await supabase
       .from('tags')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .order('name', { ascending: true })
 
     if (error) {
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     const { data: existingTag, error: checkError } = await supabase
       .from('tags')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .eq('name', validationResult.data.name)
       .single()
 
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
 
     const tagData = {
       ...validationResult.data,
-      user_id: user.id,
+      user_id: user!.id,
       created_at: new Date().toISOString()
     }
 

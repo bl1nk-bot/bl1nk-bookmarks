@@ -45,7 +45,7 @@ export async function GET(
         )
       `)
       .eq('id', bookmarkId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .single()
 
     if (error) {
@@ -121,7 +121,7 @@ export async function PUT(
       .from('bookmarks')
       .update(updateData)
       .eq('id', bookmarkId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .select(`
         *,
         collections (
@@ -196,7 +196,7 @@ export async function DELETE(
       .from('bookmarks')
       .select('id')
       .eq('id', bookmarkId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .single()
 
     if (fetchError) {
@@ -218,7 +218,7 @@ export async function DELETE(
       .from('bookmarks')
       .delete()
       .eq('id', bookmarkId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
 
     if (error) {
       console.error('Database error:', error)

@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
           color
         )
       `)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
 
     // Apply collection filter if provided
     if (collection_id) {

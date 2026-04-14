@@ -28,7 +28,7 @@ export async function GET(
       .from('tags')
       .select('*')
       .eq('id', tagId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .single()
 
     if (error) {
@@ -91,7 +91,7 @@ export async function PUT(
       const { data: existingTag, error: checkError } = await supabase
         .from('tags')
         .select('id')
-        .eq('user_id', user.id)
+        .eq('user_id', user!.id)
         .eq('name', validationResult.data.name)
         .neq('id', tagId)
         .single()
@@ -117,7 +117,7 @@ export async function PUT(
       .from('tags')
       .update(validationResult.data)
       .eq('id', tagId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .select()
       .single()
 
@@ -178,7 +178,7 @@ export async function DELETE(
       .from('tags')
       .select('id')
       .eq('id', tagId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .single()
 
     if (fetchError) {
@@ -200,7 +200,7 @@ export async function DELETE(
       .from('tags')
       .delete()
       .eq('id', tagId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
 
     if (error) {
       console.error('Database error:', error)

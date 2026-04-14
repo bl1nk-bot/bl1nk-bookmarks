@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
         *,
         bookmark_count:bookmarks(count)
       `)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1)
 
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
 
     const collectionData = {
       ...validationResult.data,
-      user_id: user.id,
+      user_id: user!.id,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     }

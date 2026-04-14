@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
           color
         )
       `)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
 
     // Apply filters
     if (filters.collection_id) {
@@ -163,7 +163,7 @@ export async function POST(request: NextRequest) {
 
     const bookmarkData = {
       ...validationResult.data,
-      user_id: user.id,
+      user_id: user!.id,
       title: validationResult.data.title || metadata.title || validationResult.data.url,
       description: validationResult.data.description || metadata.description,
       thumbnail_url: metadata.thumbnail,
