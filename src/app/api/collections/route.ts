@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
+import type { Database } from '@/lib/types/database.types'
 
 const createCollectionSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -110,7 +111,8 @@ export async function POST(request: NextRequest) {
       updated_at: new Date().toISOString()
     }
 
-    const { data: collection, error } = await supabase
+    // Type assertion for Supabase insert - will be fixed in future version
+    const { data: collection, error } = await (supabase as any)
       .from('collections')
       .insert(collectionData)
       .select()

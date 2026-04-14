@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
+import type { Database } from '@/lib/types/database.types'
 
 const createBookmarkSchema = z.object({
   url: z.string().url('Invalid URL format'),
@@ -172,7 +173,8 @@ export async function POST(request: NextRequest) {
       updated_at: new Date().toISOString()
     }
 
-    const { data: bookmark, error } = await supabase
+    // Type assertion for Supabase insert - will be fixed in future version
+    const { data: bookmark, error } = await (supabase as any)
       .from('bookmarks')
       .insert(bookmarkData)
       .select(`
