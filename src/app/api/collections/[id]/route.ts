@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
+import type { Database } from '@/lib/types/database.types'
 
 const updateCollectionSchema = z.object({
   name: z.string().min(1, 'Name is required').optional(),
@@ -105,7 +106,8 @@ export async function PUT(
       updated_at: new Date().toISOString()
     }
 
-    const { data: collection, error } = await supabase
+    // Type assertion for Supabase update - will be fixed in future version
+    const { data: collection, error } = await (supabase as any)
       .from('collections')
       .update(updateData)
       .eq('id', collectionId)

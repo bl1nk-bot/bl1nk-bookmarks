@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
+import type { Database } from '@/lib/types/database.types'
 
 const updateTagSchema = z.object({
   name: z.string().min(1, 'Name is required').max(50, 'Name too long').optional(),
@@ -111,7 +112,8 @@ export async function PUT(
       }
     }
 
-    const { data: tag, error } = await supabase
+    // Type assertion for Supabase update - will be fixed in future version
+    const { data: tag, error } = await (supabase as any)
       .from('tags')
       .update(validationResult.data)
       .eq('id', tagId)
