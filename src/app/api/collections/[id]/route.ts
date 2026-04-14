@@ -28,7 +28,7 @@ export async function GET(
 
     const { id: collectionId } = await params
 
-    const { data: collection, error } = await supabase
+    const { data: collection, error } = await (supabase as any)
       .from('collections')
       .select(`
         *,
@@ -43,7 +43,7 @@ export async function GET(
         )
       `)
       .eq('id', collectionId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .single()
 
     if (error) {
@@ -111,7 +111,7 @@ export async function PUT(
       .from('collections')
       .update(updateData)
       .eq('id', collectionId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .select()
       .single()
 
@@ -160,7 +160,7 @@ export async function DELETE(
       .from('collections')
       .select('id')
       .eq('id', collectionId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
       .single()
 
     if (fetchError) {
@@ -182,7 +182,7 @@ export async function DELETE(
       .from('collections')
       .delete()
       .eq('id', collectionId)
-      .eq('user_id', user.id)
+      .eq('user_id', user!.id)
 
     if (error) {
       console.error('Database error:', error)
