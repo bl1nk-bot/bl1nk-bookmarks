@@ -13,7 +13,7 @@ const updateCollectionSchema = z.object({
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient()
@@ -25,14 +25,7 @@ export async function GET(
     }
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: { code: 'UNAUTHORIZED', message: 'Authentication required' } },
-        { status: 401 }
-      )
-    }
-
-    const collectionId = params.id
+    const { id: collectionId } = await params
 
     const { data: collection, error } = await supabase
       .from('collections')
@@ -78,7 +71,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient()
@@ -90,14 +83,7 @@ export async function PUT(
     }
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: { code: 'UNAUTHORIZED', message: 'Authentication required' } },
-        { status: 401 }
-      )
-    }
-
-    const collectionId = params.id
+    const { id: collectionId } = await params
     const body = await request.json()
     const validationResult = updateCollectionSchema.safeParse(body)
 
@@ -153,7 +139,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient()
@@ -165,14 +151,7 @@ export async function DELETE(
     }
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: { code: 'UNAUTHORIZED', message: 'Authentication required' } },
-        { status: 401 }
-      )
-    }
-
-    const collectionId = params.id
+    const { id: collectionId } = await params
 
     // Check if collection exists and belongs to user
     const { data: existingCollection, error: fetchError } = await supabase

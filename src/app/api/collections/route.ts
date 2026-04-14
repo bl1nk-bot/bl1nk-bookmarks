@@ -30,17 +30,15 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url)
-
-    // Parse and validate pagination parameters
     const limitParam = searchParams.get('limit')
     const offsetParam = searchParams.get('offset')
 
-    const limit = limitParam && !isNaN(parseInt(limitParam)) && parseInt(limitParam) > 0 && parseInt(limitParam) <= 100
-      ? parseInt(limitParam)
+    const limit = limitParam && !isNaN(Number(limitParam)) && Number(limitParam) > 0 && Number(limitParam) <= 100
+      ? Number(limitParam)
       : 50
 
-    const offset = offsetParam && !isNaN(parseInt(offsetParam)) && parseInt(offsetParam) >= 0
-      ? parseInt(offsetParam)
+    const offset = offsetParam && !isNaN(Number(offsetParam)) && Number(offsetParam) >= 0
+      ? Number(offsetParam)
       : 0
 
     const { data: collections, error } = await supabase

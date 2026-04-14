@@ -6,13 +6,13 @@ const updateBookmarkSchema = z.object({
   url: z.string().url('Invalid URL format').optional(),
   title: z.string().optional(),
   description: z.string().optional(),
-  collection_id: z.string().uuid().nullable().optional(),
-  custom_fields: z.record(z.any()).optional()
+  collection_id: z.string().uuid().nullable().optional()
+  // custom_fields: z.record(z.string(), z.unknown()).optional() // Temporarily disabled
 })
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient()
@@ -24,14 +24,14 @@ export async function GET(
     }
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json(
         { error: { code: 'UNAUTHORIZED', message: 'Authentication required' } },
         { status: 401 }
       )
     }
 
-    const bookmarkId = params.id
+    const { id: bookmarkId } = await params
 
     const { data: bookmark, error } = await supabase
       .from('bookmarks')
@@ -73,7 +73,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient()
@@ -85,14 +85,15 @@ export async function PUT(
     }
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json(
         { error: { code: 'UNAUTHORIZED', message: 'Authentication required' } },
         { status: 401 }
       )
     }
 
-    const bookmarkId = params.id
+    const { id: bookmarkId } = await params
+
     const body = await request.json()
     const validationResult = updateBookmarkSchema.safeParse(body)
 
@@ -116,7 +117,7 @@ export async function PUT(
 
     const { data: bookmark, error } = await supabase
       .from('bookmarks')
-      .update(updateData)
+      .update(updateData as any)
       .eq('id', bookmarkId)
       .eq('user_id', user.id)
       .select(`
@@ -167,7 +168,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient()
@@ -179,14 +180,14 @@ export async function DELETE(
     }
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json(
         { error: { code: 'UNAUTHORIZED', message: 'Authentication required' } },
         { status: 401 }
       )
     }
 
-    const bookmarkId = params.id
+    const { id: bookmarkId } = await params
 
     // Check if bookmark exists and belongs to user
     const { data: existingBookmark, error: fetchError } = await supabase

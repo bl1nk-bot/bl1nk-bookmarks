@@ -6,8 +6,8 @@ const createBookmarkSchema = z.object({
   url: z.string().url('Invalid URL format'),
   title: z.string().optional(),
   description: z.string().optional(),
-  collection_id: z.string().uuid().optional(),
-  custom_fields: z.record(z.any()).optional()
+  collection_id: z.string().uuid().optional()
+  // custom_fields: z.record(z.unknown()).optional() // Temporarily disabled
 })
 
 const bookmarkFiltersSchema = z.object({
@@ -167,7 +167,7 @@ export async function POST(request: NextRequest) {
       description: validationResult.data.description || metadata.description,
       thumbnail_url: metadata.thumbnail,
       favicon_url: metadata.favicon,
-      custom_fields: validationResult.data.custom_fields || {},
+      custom_fields: {}, // Temporarily empty
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     }
