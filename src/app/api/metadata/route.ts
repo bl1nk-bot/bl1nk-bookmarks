@@ -150,22 +150,43 @@ export async function GET(request: Request) {
   const timeout = setTimeout(() => controller.abort(), 10000)
 
   try {
-    const response = await fetch(normalizedUrl, {
-      headers: {
-        'User-Agent': USER_AGENT,
-      },
-      redirect: 'manual',
-      signal: controller.signal,
-    })
+    let currentUrl = normalizedUrl
 
-    if (!response.ok) {
-      return NextResponse.json({ error: `Failed to fetch URL (${response.status})` }, { status: 400 })
+    // Follow redirects manually with validation (max 5 redirects to prevent loops)
+    for (let redirectCount = 0; redirectCount < 5; redirectCount++) {
+      const response = await fetch(currentUrl, {
+        headers: {
+          'User-Agent': USER_AGENT,
+        },
+        redirect: 'manual',
+        signal: controller.signal,
+      })
+
+      // Handle redirect responses (3xx status codes)
+      if (response.status >= 300 && response.status < 400) {
+        const location = response.headers.get('location')
+        const nextUrl = location ? new URL(location, currentUrl).toString() : null
+
+        if (!nextUrl || !isAllowedTargetUrl(nextUrl)) {
+          return NextResponse.json({ error: 'Invalid redirect target' }, { status: 400 })
+        }
+
+        currentUrl = nextUrl
+        continue
+      }
+
+      // Handle non-redirect responses
+      if (!response.ok) {
+        return NextResponse.json({ error: `Failed to fetch URL (${response.status})` }, { status: 400 })
+      }
+
+      const html = await response.text()
+      const metadata = parseMetadata(html, response.url || currentUrl)
+      return NextResponse.json(metadata)
     }
 
-    const html = await response.text()
-    const metadata = parseMetadata(html, response.url || normalizedUrl)
-
-    return NextResponse.json(metadata)
+    // Too many redirects
+    return NextResponse.json({ error: 'Too many redirects' }, { status: 400 })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to fetch metadata'
     return NextResponse.json({ error: message }, { status: 500 })
