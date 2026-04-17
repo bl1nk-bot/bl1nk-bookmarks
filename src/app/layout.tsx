@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { AuthProvider } from '@/components/providers/auth-provider'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: 'Listy - Smart Bookmark Manager',
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className="font-sans" suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
+        <Analytics />
       </body>
     </html>
   )
