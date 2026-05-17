@@ -13,6 +13,25 @@ function isValidHttpUrl(value: string) {
   }
 }
 
+function sanitizeFetchTargetUrl(value: string, base?: string): string | null {
+  try {
+    const parsed = base ? new URL(value, base) : new URL(value)
+    const normalized = parsed.toString()
+
+    if (!isValidHttpUrl(normalized)) {
+      return null
+    }
+
+    if (!isAllowedTargetUrl(normalized)) {
+      return null
+    }
+
+    return normalized
+  } catch {
+    return null
+  }
+}
+
 // Restrict which hosts/ports can be requested to mitigate SSRF.
 // Adjust ALLOWED_HOSTNAMES / ALLOWED_HOST_SUFFIXES as appropriate for your app.
 const ALLOWED_HOSTNAMES = new Set<string>()
@@ -141,8 +160,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
   }
 
-  const normalizedUrl = targetUrl.toString()
-  if (!isValidHttpUrl(normalizedUrl) || !isAllowedTargetUrl(normalizedUrl)) {
+  const normalizedUrl = sanitizeFetchTargetUrl(targetUrl.toString())
+  if (!normalizedUrl) {
     return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
   }
 
@@ -165,9 +184,9 @@ export async function GET(request: Request) {
       // Handle redirect responses (3xx status codes)
       if (response.status >= 300 && response.status < 400) {
         const location = response.headers.get('location')
-        const nextUrl = location ? new URL(location, currentUrl).toString() : null
+        const nextUrl = location ? sanitizeFetchTargetUrl(location, currentUrl) : null
 
-        if (!nextUrl || !isAllowedTargetUrl(nextUrl)) {
+        if (!nextUrl) {
           return NextResponse.json({ error: 'Invalid redirect target' }, { status: 400 })
         }
 
