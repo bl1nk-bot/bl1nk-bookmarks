@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" className="dark bg-background" suppressHydrationWarning>
       <body className="font-sans" suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
         <Analytics />
