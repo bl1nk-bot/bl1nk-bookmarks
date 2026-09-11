@@ -45,5 +45,13 @@
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "browserslist": "^4.28.7"
+  },
+  "pnpm": {
+    "overrides": {
+      "browserslist": "^4.28.7"
+    }
   }
 }
